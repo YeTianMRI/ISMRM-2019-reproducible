@@ -1,7 +1,8 @@
 %%% For ISMRM 2019 reproducible research study group challenge
 %%% University of Utah
 %%% Utah Center for Advanced Imaging Research (UCAIR)
-%%% The cardiac MRI group
+%%% The cardiovascular MRI group: Ganesh Adluru, Edward DiBella,
+%%% Jason Mendes, Ye Tian and Brent Wilson
 %%% contact: Ye Tian, ye.tian@utah.edu
 
 % The code provided here is part of our radial reconstruction framework.
