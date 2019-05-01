@@ -24,7 +24,7 @@ ky = trajectory(:,:,2);
 clear trajectory
 
 para.setting.plot = 0;
-para.setting.ifGPU = 1;
+para.setting.ifGPU = 0;
 %% Reconstruction of reference
 % initialize NUFFT
 Data.kSpace = kSpace;
