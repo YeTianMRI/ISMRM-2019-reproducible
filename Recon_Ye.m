@@ -1,13 +1,38 @@
-%%% For ISMRM 2019 reproducible research study group challange
+%%% For ISMRM 2019 reproducible research study group challenge
 %%% University of Utah
 %%% Utah Center for Advanced Imaging Research (UCAIR)
 %%% The cardiac MRI group
 %%% contact: Ye Tian, ye.tian@utah.edu
 
+% The code provided here is part of our radial reconstruction framework.
+% The NUFFT codes were originally adopted from Jeffrey A. Fessler and
+% were modulated by the authors to be GPU compatible. The ESPIRiT
+% sensitivity map estimation requires the ESPIRiT package provided by
+% Michael Lustig. To set up, run the 'setPath.m' function in the ESPIRiT
+% package: run('ESPIRiT/setPath.m') and change the setting 
+% 'para.setting.sens_map' be 'ESPIRIT'. This demo can also be run on GPU 
+% by changing the 'para.setting.ifGPU' setting be '1'. The reconstruction 
+% process can be visualized by setting 'para.setting.plot' be '1'.
+
+% Our radial reconstruction frameworks can be found at:
+% https://github.com/edibella/Reconstruction
+% https://github.com/gadluru/Multiview-myocardial-perfusion-with-radial-SMS
+
+% The original NUFFT code can be found at:
+% https://web.eecs.umich.edu/~fessler/
+
+% The ESPIRiT package can be downloaded at:
+% https://people.eecs.berkeley.edu/~mlustig/Software.html
+
+%% set up
 clear
 clc
 close all
 addpath mfile
+
+para.setting.plot = 0;
+para.setting.ifGPU = 0;
+para.setting.sens_map = 'adaptive';
 
 %% Load Brain data
 rawdata_real = h5read('rawdata_brain_radial_96proj_12ch.h5','/rawdata');
@@ -23,14 +48,12 @@ kx = trajectory(:,:,1);
 ky = trajectory(:,:,2);
 clear trajectory
 
-para.setting.plot = 0;
-para.setting.ifGPU = 1;
 %% Reconstruction of reference
 % initialize NUFFT
 Data.kSpace = kSpace;
 Data.N = NUFFT.init(kx,ky,2,[6,6]);
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace,Data.N);
-Data.sens_map = get_sens_map(Data.first_est);
+Data.sens_map = get_sens_map(Data.first_est,para.setting.sens_map);
 
 % coil combination
 Data.first_est = conj(Data.sens_map).*Data.first_est;
@@ -168,7 +191,7 @@ para.Recon.noi = 100;
 Data.kSpace = kSpace;
 Data.N = NUFFT.init(kx,ky,2,[6,6]);
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace,Data.N);
-Data.sens_map = get_sens_map(Data.first_est);
+Data.sens_map = get_sens_map(Data.first_est,para.setting.sens_map);
 
 Data.first_est = conj(Data.sens_map).*Data.first_est;
 Data.first_est = sum(Data.first_est,4);
