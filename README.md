@@ -1,6 +1,6 @@
 # ISMRM-2019-reproducible
 
-This repository contains the submission of ISMRM Reproducible Study Research 2019 from Ye Tian, The University of Utah.
+This repository contains the submission of ISMRM Reproducible Research Study Group 2019 challange from Ye Tian, The University of Utah.
 
 Contact: Ye Tian
 phye1988@gmail.com
