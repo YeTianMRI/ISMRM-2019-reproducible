@@ -1,5 +1,10 @@
 # ISMRM-2019-reproducible
 
+This repository contains the submission of ISMRM Reproducible Study Research 2019 from Ye Tian, The University of Utah.
+
+Contact: Ye Tian
+phye1988@gmail.com
+
 Licience
 
 Copyright <2020> <Ye Tian>
